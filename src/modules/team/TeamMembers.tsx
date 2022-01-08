@@ -6,6 +6,7 @@ import {generateRandomColor} from '../../utils/color-generator';
 import {mq} from '../../utils/media-query';
 import EmptyList from './EmptyList';
 import GridCardSkeleton from './GridCardSkeleton';
+import ListCardSkeleton from './ListCardSkeleton';
 
 const GridViewCard = React.lazy(() => import('./GridViewCard'));
 const ListViewCard = React.lazy(() => import('./ListViewCard'));
@@ -95,11 +96,12 @@ export const TeamMembers: FC = () => {
 
 const FallbackComponent: FC<{view: 'grid' | 'list'}> = ({view}) => {
   const View = view === 'grid' ? GridView : ListView;
+  const Card = view === 'grid' ? GridCardSkeleton : ListCardSkeleton;
 
   return (
     <View role="alert" aria-busy aria-label="Loading">
       {Array.from({length: 10}, (_, i) => (
-        <GridCardSkeleton key={i} />
+        <Card key={i} />
       ))}
     </View>
   );
