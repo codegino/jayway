@@ -4,6 +4,7 @@ import type {TeamMember} from '../../models/team-member';
 import {useActionState} from '../../state/action-state';
 import {generateRandomColor} from '../../utils/color-generator';
 import {mq} from '../../utils/media-query';
+import EmptyList from './EmptyList';
 
 const GridViewCard = React.lazy(() => import('./GridViewCard'));
 const ListViewCard = React.lazy(() => import('./ListViewCard'));
@@ -58,6 +59,8 @@ export const TeamMembers: FC = () => {
 
   return (
     <>
+      {filter && filteredList.length === 0 && <EmptyList />}
+
       <Suspense fallback={<div>Fallback component</div>}>
         <View>
           {sortedList.map((user: TeamMember) => (
