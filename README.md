@@ -125,6 +125,6 @@ this exercise.
 Even on a CRA setup without SSR, we can achieve a very high score in Lighthouse
 report.
 
-![Image](https://xvcorfohslswcnlfcndv.supabase.in/storage/v1/object/public/gif/Jayway.gif)
+![Image](https://media2.giphy.com/media/7k5dTPH05QAPyR51f4/giphy.gif)
 
 Play with the application [here](https://jayway.vercel.app/).
