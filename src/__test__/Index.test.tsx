@@ -1,24 +1,13 @@
 import React from 'react';
-import {render, screen, waitFor} from '@testing-library/react';
+import {screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {rest} from 'msw';
 import {setupServer} from 'msw/node';
-import App from '../App';
-import {waitForLoadingToStartAndFinish} from '../__mocks__/helper';
 import {createTeamMember} from '../__mocks__/team-member';
-
-describe('Home', () => {
-  it('renders a heading', async () => {
-    render(<App />);
-
-    await waitForLoadingToStartAndFinish();
-  });
-});
+import {render} from '../__mocks__/team-renderer';
 
 test('Toggle Grid and List view', async () => {
-  render(<App />);
-
-  await waitForLoadingToStartAndFinish();
+  render();
 
   // Grid view by default
   expect(screen.getByRole('button', {name: /grid view/i})).toBeInTheDocument();
@@ -49,11 +38,7 @@ test('Display error message on backend error', async () => {
       );
     }),
   );
-  render(<App />);
-
-  await waitFor(() => {
-    expect(screen.getByRole('alert', {name: 'Loading'})).toBeInTheDocument();
-  });
+  render();
 
   await waitFor(() => {
     expect(

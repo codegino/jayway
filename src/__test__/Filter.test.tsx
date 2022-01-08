@@ -1,16 +1,13 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {rest} from 'msw';
 import {setupServer} from 'msw/node';
-import App from '../App';
-import {waitForLoadingToStartAndFinish} from '../__mocks__/helper';
 import {createTeamMember} from '../__mocks__/team-member';
+import {render} from '../__mocks__/team-renderer';
 
 test('Toggle Filter', async () => {
-  render(<App />);
-
-  await waitForLoadingToStartAndFinish();
+  render();
 
   const gridCards = await screen.findAllByTestId('grid-card');
 
@@ -38,9 +35,7 @@ test('Toggle Filter', async () => {
 });
 
 test('Show error message when input received `ERROR`', async () => {
-  render(<App />);
-
-  await waitForLoadingToStartAndFinish();
+  render();
 
   userEvent.type(
     screen.getByRole('searchbox', {name: 'Search by name'}),
@@ -51,9 +46,7 @@ test('Show error message when input received `ERROR`', async () => {
 });
 
 test('Toggle Sorting', async () => {
-  render(<App />);
-
-  await waitForLoadingToStartAndFinish();
+  render();
 
   const gridCards = await screen.findAllByTestId('grid-card');
 
