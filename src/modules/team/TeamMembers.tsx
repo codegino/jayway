@@ -11,6 +11,7 @@ const ListViewCard = React.lazy(() => import('./ListViewCard'));
 
 export const TeamMembers: FC = () => {
   const [users, setUsers] = useState<TeamMember[]>([]);
+  const [error, setError] = useState<Error | null>(null);
 
   // We can use React Query, SWR, or render-as-you-fetch, etc. to fetch data from the API
   // which will make this component a lot simpler.
@@ -32,10 +33,23 @@ export const TeamMembers: FC = () => {
             color: generateRandomColor(),
           })),
         );
+        setError(null);
+      })
+      .catch(e => {
+        setError(e);
       });
   }, []);
 
+  // To trigger error boundary.
+  if (error) {
+    throw error;
+  }
+
   const {view, filter, sort} = useActionState();
+
+  if (filter === 'ERROR') {
+    throw new Error('Forced Error');
+  }
 
   // We can wrap these in `useMemo`, but these are not currently that computationally expensive.
   const filteredList = filter.length
