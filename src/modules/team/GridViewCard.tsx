@@ -5,6 +5,7 @@ import Heading3 from '../../components/typography/Heading3';
 import _EmailIcon from '../../icons/mail.svg';
 import _PhoneIcon from '../../icons/phone.svg';
 import type {TeamMember} from '../../models/team-member';
+import {mq} from '../../utils/media-query';
 import EmployeeImage from './Image';
 
 const GridCard: FC<TeamMember> = ({
@@ -57,6 +58,11 @@ const Container = styled.section<{color: string}>(props => ({
   backgroundColor: props.color,
   borderRadius: 20,
   overflow: 'hidden',
+
+  [mq('sm')]: {
+    height: 342,
+    width: 210,
+  },
 }));
 
 const Picture = styled(EmployeeImage)({
@@ -67,6 +73,10 @@ const Picture = styled(EmployeeImage)({
   height: 80,
   width: 80,
   zIndex: 1,
+  [mq('sm')]: {
+    height: 100,
+    width: 100,
+  },
 });
 
 const MainDetails = styled.div({
@@ -81,6 +91,10 @@ const MainDetails = styled.div({
     top: 25,
     textAlign: 'center',
     padding: '0 0.25rem',
+    [mq('sm')]: {
+      padding: '0 0.5rem',
+      top: 60,
+    },
   },
 });
 
@@ -93,6 +107,11 @@ const BottomRightCurveContainer = styled.div<{color: string}>(props => ({
   width: 27,
   border: 'none',
 
+  [mq('sm')]: {
+    height: 42,
+    width: 42,
+  },
+
   '&::after': {
     content: '""',
     backgroundColor: props.color,
@@ -100,6 +119,9 @@ const BottomRightCurveContainer = styled.div<{color: string}>(props => ({
     borderBottomRightRadius: 27,
     height: '100%',
     width: '100%',
+    [mq('sm')]: {
+      borderBottomRightRadius: 42,
+    },
   },
 }));
 
@@ -110,6 +132,11 @@ const ContactInfo = styled.div({
   alignItems: 'center',
   bottom: 17.84,
   width: 32.81,
+
+  [mq('sm')]: {
+    bottom: 34,
+    width: 51,
+  },
 });
 
 const ExtraDetails = styled.div({
@@ -125,17 +152,28 @@ const ExtraDetails = styled.div({
 
   '& h3': {
     padding: '0 0.25rem',
+    [mq('sm')]: {
+      padding: '0 0.5rem',
+    },
   },
 });
 
 const EmailIcon = styled.img({
   width: 14.15,
   height: 14.15,
+  [mq('sm')]: {
+    width: 22,
+    height: 22,
+  },
 });
 
 const PhoneIcon = styled.img({
   width: 12.22,
   height: 12.22,
+  [mq('sm')]: {
+    width: 19,
+    height: 19,
+  },
 });
 
 export default GridCard;
