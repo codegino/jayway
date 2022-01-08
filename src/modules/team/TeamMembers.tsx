@@ -1,6 +1,7 @@
 import React, {FC, Suspense, useEffect, useRef, useState} from 'react';
 import styled from '@emotion/styled';
 import type {TeamMember} from '../../models/team-member';
+import {useActionState} from '../../state/action-state';
 import {generateRandomColor} from '../../utils/color-generator';
 import {mq} from '../../utils/media-query';
 
@@ -33,14 +34,19 @@ export const TeamMembers: FC = () => {
       });
   }, []);
 
+  const {view} = useActionState();
+
+  const View = view === 'grid' ? GridView : ListView;
+  const Card = view === 'grid' ? GridViewCard : ListViewCard;
+
   return (
     <>
       <Suspense fallback={<div>Fallback component</div>}>
-        <ListView>
+        <View>
           {users.map((user: TeamMember) => (
-            <ListViewCard key={user.email} {...user} />
+            <Card key={user.email} {...user} />
           ))}
-        </ListView>
+        </View>
       </Suspense>
     </>
   );
