@@ -1,11 +1,13 @@
 import React, {FunctionComponent} from 'react';
 import styled from '@emotion/styled';
 import {mq} from '../../utils/media-query';
+import {Sorter} from './Sorter';
 import {ViewToggle} from './ViewToggle';
 
 const ActionToolbar: FunctionComponent = () => {
   return (
     <GridContainer>
+      <Sorter className="sort-button" />
       <ViewToggle className="view-button" />
     </GridContainer>
   );
@@ -21,6 +23,10 @@ const GridContainer = styled.div({
     gridTemplateColumns: '33px 1fr 1fr',
   },
   gap: 10,
+  '& .sort-button': {
+    textAlign: 'left',
+    order: 1,
+  },
   '& .view-button': {
     textAlign: 'right',
     order: 3,

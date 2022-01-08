@@ -4,12 +4,16 @@ import type {FunctionComponent} from 'react';
 // Mini state management utility
 
 type ViewType = 'grid' | 'list';
+type SortType = 'asc' | 'desc';
 
 type StateType = {
   view: ViewType;
+  sort: SortType;
 };
 
-type DispatchType = {type: 'view'; payload: 'grid' | 'list'};
+type DispatchType =
+  | {type: 'view'; payload: 'grid' | 'list'}
+  | {type: 'sort'; payload: 'asc' | 'desc'};
 
 type ActionState = {
   dispatch: React.Dispatch<DispatchType>;
@@ -23,6 +27,7 @@ export const ActionContext = createContext<ActionState>(
 export const ActionProvider: FunctionComponent = ({children}) => {
   const [state, dispatch] = useReducer(stateReducer, {
     view: 'grid',
+    sort: 'asc',
   });
 
   return (
@@ -39,6 +44,8 @@ export const stateReducer = (
   switch (action.type) {
     case 'view':
       return {...state, view: action.payload};
+    case 'sort':
+      return {...state, sort: action.payload};
     // Default is not needed since there's no way it will be called
   }
 };
@@ -50,10 +57,11 @@ export const useActionState = () => {
     dispatch: React.Dispatch<DispatchType>;
   };
 
-  const {view} = state;
+  const {view, sort} = state;
 
   return {
     view,
+    sort,
     dispatch,
   };
 };
