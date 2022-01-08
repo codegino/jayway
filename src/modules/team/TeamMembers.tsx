@@ -5,6 +5,7 @@ import {useActionState} from '../../state/action-state';
 import {generateRandomColor} from '../../utils/color-generator';
 import {mq} from '../../utils/media-query';
 import EmptyList from './EmptyList';
+import GridCardSkeleton from './GridCardSkeleton';
 
 const GridViewCard = React.lazy(() => import('./GridViewCard'));
 const ListViewCard = React.lazy(() => import('./ListViewCard'));
@@ -12,12 +13,14 @@ const ListViewCard = React.lazy(() => import('./ListViewCard'));
 export const TeamMembers: FC = () => {
   const [users, setUsers] = useState<TeamMember[]>([]);
   const [error, setError] = useState<Error | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // We can use React Query, SWR, or render-as-you-fetch, etc. to fetch data from the API
   // which will make this component a lot simpler.
   //
   // For the sake of this exercise, I'll use a simple useEffect.
   useEffect(() => {
+    setLoading(true);
     fetch('https://randomuser.me/api/?results=50')
       .then(async res => {
         const body = await res.json();
@@ -37,6 +40,9 @@ export const TeamMembers: FC = () => {
       })
       .catch(e => {
         setError(e);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -73,9 +79,10 @@ export const TeamMembers: FC = () => {
 
   return (
     <>
+      {loading && <FallbackComponent view={view} />}
       {filter && filteredList.length === 0 && <EmptyList />}
 
-      <Suspense fallback={<div>Fallback component</div>}>
+      <Suspense fallback={<FallbackComponent view={view} />}>
         <View>
           {sortedList.map((user: TeamMember) => (
             <Card key={user.email} {...user} />
@@ -83,6 +90,18 @@ export const TeamMembers: FC = () => {
         </View>
       </Suspense>
     </>
+  );
+};
+
+const FallbackComponent: FC<{view: 'grid' | 'list'}> = ({view}) => {
+  const View = view === 'grid' ? GridView : ListView;
+
+  return (
+    <View role="alert" aria-busy aria-label="Loading">
+      {Array.from({length: 10}, (_, i) => (
+        <GridCardSkeleton key={i} />
+      ))}
+    </View>
   );
 };
 
