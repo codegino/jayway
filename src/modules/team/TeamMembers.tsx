@@ -1,4 +1,4 @@
-import React, {FC, Suspense, useEffect, useState} from 'react';
+import React, {FC, Suspense, useEffect, useRef, useState} from 'react';
 import styled from '@emotion/styled';
 import type {TeamMember} from '../../models/team-member';
 import {useActionState} from '../../state/action-state';
@@ -12,47 +12,14 @@ const GridViewCard = React.lazy(() => import('./GridViewCard'));
 const ListViewCard = React.lazy(() => import('./ListViewCard'));
 
 export const TeamMembers: FC = () => {
-  const [users, setUsers] = useState<TeamMember[]>([]);
-  const [error, setError] = useState<Error | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  // We can use React Query, SWR, or render-as-you-fetch, etc. to fetch data from the API
-  // which will make this component a lot simpler.
-  //
-  // For the sake of this exercise, I'll use a simple useEffect.
-  useEffect(() => {
-    setLoading(true);
-    fetch('https://randomuser.me/api/?results=50')
-      .then(async res => {
-        const body = await res.json();
-        if (res.status >= 400 && res.status < 600) {
-          throw new Error(body.message);
-        }
-        return body;
-      })
-      .then(res => {
-        setUsers(
-          res.results.map((user: TeamMember) => ({
-            ...user,
-            color: generateRandomColor(),
-          })),
-        );
-        setError(null);
-      })
-      .catch(e => {
-        setError(e);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  const {error, loading, data: users} = useFetchTeam();
 
   // To trigger error boundary.
   if (error) {
     throw error;
   }
 
-  const {view, filter, sort} = useActionState();
+  const {view, sort, filter} = useActionState();
 
   if (filter === 'ERROR') {
     throw new Error('Forced Error');
@@ -84,6 +51,9 @@ export const TeamMembers: FC = () => {
       {filter && filteredList.length === 0 && <EmptyList />}
 
       <Suspense fallback={<FallbackComponent view={view} />}>
+        {/* If list becomes too many,
+        we can use react-window or react-virual
+        to improve performance. */}
         <View>
           {sortedList.map((user: TeamMember) => (
             <Card key={user.email} {...user} />
@@ -92,6 +62,56 @@ export const TeamMembers: FC = () => {
       </Suspense>
     </>
   );
+};
+
+// This custom hook might not be necessary, but it will simplify the main component.
+// Or possibly, it can be converted to a more generic fetching hook.
+const useFetchTeam = () => {
+  const [data, setData] = useState<TeamMember[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  // To prevent memory leak in finally block
+  const mountedRef = useRef<boolean>(false);
+
+  // We can use React Query, SWR, or render-as-you-fetch, etc. to fetch data from the API
+  // which will make this component a lot simpler.
+  //
+  // For the sake of this exercise, I'll use a simple useEffect.
+  useEffect(() => {
+    mountedRef.current = true;
+    setLoading(true);
+    // OPTIONAL: We can store the URL in .env variable
+    fetch('https://randomuser.me/api/?results=50')
+      .then(async res => {
+        const body = await res.json();
+        if (res.status >= 400 && res.status < 600) {
+          throw new Error(body.message);
+        }
+        return body;
+      })
+      .then(res => {
+        setData(
+          res.results.map((user: TeamMember) => ({
+            ...user,
+            color: generateRandomColor(),
+          })),
+        );
+        setError(null);
+      })
+      .catch(e => {
+        setError(e);
+      })
+      .finally(() => {
+        mountedRef.current && setLoading(false);
+      });
+
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
+  return {data, loading, error};
 };
 
 const FallbackComponent: FC<{view: 'grid' | 'list'}> = ({view}) => {
