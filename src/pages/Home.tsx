@@ -2,8 +2,8 @@ import React, {FC} from 'react';
 import styled from '@emotion/styled';
 import ActionToolbar from '../components/action-toolbar/ActionToolbar';
 import Heading1 from '../components/typography/Heading1';
-import {ErrorBoundary} from '../modules/team/ErrorBoundary';
-import TeamMembers from '../modules/team/TeamMembers';
+import ErrorBoundary from '../modules/team/ErrorBoundary';
+import TeamMembersListing from '../modules/team/TeamMembersListing';
 import {ActionProvider} from '../state/action-state';
 
 const Home: FC = () => {
@@ -14,7 +14,7 @@ const Home: FC = () => {
           <Heading1>Meet the Team</Heading1>
           <ActionToolbar />
           <ErrorBoundary>
-            <TeamMembers />
+            <TeamMembersListing />
           </ErrorBoundary>
         </Main>
       </LayoutWrapper>

@@ -6,7 +6,7 @@ import _EmailIcon from '../../icons/mail.svg';
 import _PhoneIcon from '../../icons/phone.svg';
 import type {TeamMember} from '../../models/team-member';
 import {mq} from '../../utils/media-query';
-import EmployeeImage from './Image';
+import MemberImage from './MemberImage';
 
 const WideCard: FC<TeamMember> = ({
   picture,
@@ -79,7 +79,7 @@ const BasicInfo = styled.div({
   },
 });
 
-const Picture = styled(EmployeeImage)<{size: number}>(props => ({
+const Picture = styled(MemberImage)<{size: number}>(props => ({
   position: 'absolute',
   borderRadius: '50%',
   overflow: 'hidden',

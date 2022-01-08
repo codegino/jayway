@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import styled from '@emotion/styled';
 import type {TeamMember} from '../../models/team-member';
 
-const EmployeeImage: FC<
+const TeamMemberImage: FC<
   JSX.IntrinsicElements['img'] & Pick<TeamMember, 'picture'>
 > = ({picture, alt, ...props}) => {
   return (
@@ -25,4 +25,4 @@ const Image = styled.img({
   backgroundColor: '#ffffff',
 });
 
-export default EmployeeImage;
+export default TeamMemberImage;

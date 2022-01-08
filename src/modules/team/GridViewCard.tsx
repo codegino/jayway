@@ -6,7 +6,7 @@ import _EmailIcon from '../../icons/mail.svg';
 import _PhoneIcon from '../../icons/phone.svg';
 import type {TeamMember} from '../../models/team-member';
 import {mq} from '../../utils/media-query';
-import EmployeeImage from './Image';
+import MemberImage from './MemberImage';
 
 const GridCard: FC<TeamMember> = ({
   name,
@@ -65,7 +65,7 @@ const Container = styled.section<{color: string}>(props => ({
   },
 }));
 
-const Picture = styled(EmployeeImage)({
+const Picture = styled(MemberImage)({
   position: 'absolute',
   bottom: '-25%',
   borderRadius: '50%',

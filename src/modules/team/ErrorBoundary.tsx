@@ -13,7 +13,7 @@ interface State {
 
 // Alternatively we can use `react-error-boundary` package
 
-export class ErrorBoundary extends React.Component<Props, State> {
+class ErrorBoundary extends React.Component<Props, State> {
   public state: State = {
     hasError: false,
     errorMessage: '',
@@ -67,3 +67,5 @@ const Container = styled.div`
     width: 100%;
   }
 `;
+
+export default ErrorBoundary;
