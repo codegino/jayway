@@ -21,6 +21,8 @@ const GridCard: FC<TeamMember> = ({
       <MainDetails>
         <Heading2>{fullName}</Heading2>
         <Picture picture={picture} alt={fullName} title={fullName} />
+
+        <BottomRightCurveContainer color={color} />
       </MainDetails>
 
       <ExtraDetails>
@@ -81,6 +83,25 @@ const MainDetails = styled.div({
     padding: '0 0.25rem',
   },
 });
+
+const BottomRightCurveContainer = styled.div<{color: string}>(props => ({
+  backgroundColor: 'white',
+  position: 'absolute',
+  bottom: 0,
+  right: 0,
+  height: 27,
+  width: 27,
+  border: 'none',
+
+  '&::after': {
+    content: '""',
+    backgroundColor: props.color,
+    position: 'absolute',
+    borderBottomRightRadius: 27,
+    height: '100%',
+    width: '100%',
+  },
+}));
 
 const ContactInfo = styled.div({
   position: 'absolute',
