@@ -1,7 +1,10 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, Suspense, useEffect, useRef, useState} from 'react';
 import styled from '@emotion/styled';
 import type {TeamMember} from '../../models/team-member';
 import {generateRandomColor} from '../../utils/color-generator';
+import {mq} from '../../utils/media-query';
+
+const GridViewCard = React.lazy(() => import('./GridViewCard'));
 
 export const TeamMembers: FC = () => {
   const [users, setUsers] = useState<TeamMember[]>([]);
@@ -31,19 +34,27 @@ export const TeamMembers: FC = () => {
 
   return (
     <>
-      <GridView>
-        {users.map((user: TeamMember) => (
-          <div key={user.email}>{user.email}</div>
-        ))}
-      </GridView>
+      <Suspense fallback={<div>Fallback component</div>}>
+        <GridView>
+          {users.map((user: TeamMember) => (
+            <GridViewCard key={user.email} {...user} />
+          ))}
+        </GridView>
+      </Suspense>
     </>
   );
 };
 
 const GridView = styled.div({
   display: 'grid',
-  gridTemplateColumns: 'repeat(3, minmax(210px, 1fr))',
-  gap: 48,
+  gridTemplateColumns: 'repeat(2, minmax(135px, 1fr))',
+  [mq('md')]: {
+    gridTemplateColumns: 'repeat(3, minmax(210px, 1fr))',
+  },
+  gap: 31.91,
+  [mq('sm')]: {
+    gap: 48,
+  },
 });
 
 export default TeamMembers;
