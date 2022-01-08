@@ -3,8 +3,8 @@ import {screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {rest} from 'msw';
 import {setupServer} from 'msw/node';
+import {render} from '../__mocks__/app-renderer';
 import {createTeamMember} from '../__mocks__/team-member';
-import {render} from '../__mocks__/team-renderer';
 
 test('Toggle Grid and List view', async () => {
   render();
