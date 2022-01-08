@@ -11,7 +11,7 @@ const EmptyList: FC = () => (
   </Container>
 );
 
-// Another way to use emotion
+// Another way to use emotion which resembles vanilla CSS
 const Container = styled.div`
   position: relative;
   height: 100%;

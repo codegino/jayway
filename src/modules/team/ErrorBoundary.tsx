@@ -40,7 +40,7 @@ class ErrorBoundary extends React.Component<Props, State> {
   }
 }
 
-// Another way to use emotion
+// Another way to use emotion which resembles vanilla CSS
 const Container = styled.div`
   position: relative;
   height: 100%;

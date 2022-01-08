@@ -1,46 +1,130 @@
-# Getting Started with Create React App
+# Technical Assignment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Check the deployed application [here](https://jayway.vercel.app/).
 
-## Available Scripts
+## Running the application
 
-In the project directory, you can run:
+### Prerequisite
 
-### `yarn start`
+Please use Node V16.13.0+ when running the commands below to avoid any issues.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [NVM](https://github.com/nvm-sh/nvm)
+- [Node Isntaller](https://nodejs.org/en/download/)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Setup
 
-### `yarn test`
+```bash
+yarn install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Running in dev mode
 
-### `yarn build`
+```bash
+yarn start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Running the production bundle
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+yarn build
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+yarn global add serve
 
-### `yarn eject`
+serve -s build
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Running the tests
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+yarn test
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# OR run with coverage
+yarn coverage
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
+## Assumptions
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Since there are no clear criteria on how tech stack choice will be assessed, I
+listed some assumptions on what I chose to use.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Choice of tech stacks
+
+#### Create React App
+
+I can work in higher-level frameworks like Next.JS, Gatsby, Remix, or even in
+Vanilla setup, but to be on the middle part, I'll use the common CRA to
+bootstrap the project.
+
+#### Emotion
+
+Again, I can use different ways to style React, from vanilla CSS to ready-made
+components. For the sake of finding a middle ground, I will be using Emotion
+since, syntax-wise, it can be a combination of other libraries.
+
+#### TypeScript, ESLint, Prettier, Husky
+
+Automatically check the code for issues even before it reaches the remote repo.
+
+#### Others
+
+I can utilize open-source to deliver projects faster to clients, but for the
+sake of this exercise, I will recreate the other requirements from scratch.
+
+---
+
+### Folder structure
+
+There are thousands of ways to organize the codebase; I'll use this approach for
+this exercise.
+
+- `components` - Reusable components
+  - `elements` - primitive elements like input, button, etc.
+  - `typography` - texts components like h1, h2, h3, p, etc.
+- `icons` - I extracted this in case we want to reuse some icons
+- `models` - business related type definitions
+- `modules` - feature related components(these may be reused across pages)
+- `pages` - entry point for all web pages(currently only home page)
+- `state/store` - utility for sharing state. We can store redux and such here.
+- `utils` - common utility functions
+- `__mocks__` - test related utilities
+- `__test__` - Contained all test cases.
+
+---
+
+## Checklists
+
+### Feature and functional requirements:
+
+- [✓] Recreate the Figma design
+- [✓] Enable switch between grid and list view
+- [✓] Add sorting by name (ascending and descending) functionality
+- [✓] Add search by name functionality
+- [✓] Handle empty or error states
+- [✓] Use lazy loading of the cards
+- [✓] Responsive design
+- [✓] No UI frameworks used (ex. Bootstrap, Material)
+- [✓] Unit testing for the major functionalities (coverage within reason)
+- [✓] Maximize accessibility through HTML and WAI-ARIA to the best of your
+  ability
+
+### What we will look at
+
+- [✓] Use of modern ES6+ syntax
+- [✓] Use of latest CSS features
+- [✓] Use of accessibility practices
+- [✓] How has the application been tested
+- [✓] Code structure, readability, naming and formatting
+- [✓] Does the page style correspond to the provided design
+
+---
+
+## Performance, Accessibility, etc.
+
+Even on a CRA setup without SSR, we can achieve a very high score in Lighthouse
+report.
+
+![Image](https://xvcorfohslswcnlfcndv.supabase.in/storage/v1/object/public/gif/Jayway.gif)
+
+Play with the application [here](https://jayway.vercel.app/).
