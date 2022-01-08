@@ -4,10 +4,13 @@ import userEvent from '@testing-library/user-event';
 import {rest} from 'msw';
 import {setupServer} from 'msw/node';
 import App from '../App';
+import {waitForLoadingToStartAndFinish} from '../__mocks__/helper';
 import {createTeamMember} from '../__mocks__/team-member';
 
 test('Toggle Filter', async () => {
   render(<App />);
+
+  await waitForLoadingToStartAndFinish();
 
   const gridCards = await screen.findAllByTestId('grid-card');
 
@@ -20,13 +23,37 @@ test('Toggle Filter', async () => {
 
   expect(await screen.findAllByTestId('grid-card')).toHaveLength(1);
 
+  userEvent.type(
+    screen.getByRole('searchbox', {name: 'Search by name'}),
+    'Should not exist',
+  );
+  expect(screen.queryAllByTestId('grid-card')).toHaveLength(0);
+  expect(
+    screen.getByRole('alert', {name: 'No results found'}),
+  ).toBeInTheDocument();
+
   userEvent.clear(screen.getByRole('searchbox', {name: 'Search by name'}));
 
   expect(await screen.findAllByTestId('grid-card')).toHaveLength(2);
 });
 
+test('Show error message when input received `ERROR`', async () => {
+  render(<App />);
+
+  await waitForLoadingToStartAndFinish();
+
+  userEvent.type(
+    screen.getByRole('searchbox', {name: 'Search by name'}),
+    'ERROR',
+  );
+
+  expect(screen.getByRole('alert')).toBeInTheDocument();
+});
+
 test('Toggle Sorting', async () => {
   render(<App />);
+
+  await waitForLoadingToStartAndFinish();
 
   const gridCards = await screen.findAllByTestId('grid-card');
 
@@ -83,6 +110,13 @@ beforeAll(() => {
   server.listen();
 });
 
+beforeEach(() => {
+  // To hide the error message in Error Boundary
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+});
+
 afterEach(() => {
   server.resetHandlers();
+  jest.restoreAllMocks();
 });
