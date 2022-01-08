@@ -9,11 +9,13 @@ type SortType = 'asc' | 'desc';
 type StateType = {
   view: ViewType;
   sort: SortType;
+  filter: string;
 };
 
 type DispatchType =
   | {type: 'view'; payload: 'grid' | 'list'}
-  | {type: 'sort'; payload: 'asc' | 'desc'};
+  | {type: 'sort'; payload: 'asc' | 'desc'}
+  | {type: 'filter'; payload: string};
 
 type ActionState = {
   dispatch: React.Dispatch<DispatchType>;
@@ -28,6 +30,7 @@ export const ActionProvider: FunctionComponent = ({children}) => {
   const [state, dispatch] = useReducer(stateReducer, {
     view: 'grid',
     sort: 'asc',
+    filter: '',
   });
 
   return (
@@ -46,6 +49,8 @@ export const stateReducer = (
       return {...state, view: action.payload};
     case 'sort':
       return {...state, sort: action.payload};
+    case 'filter':
+      return {...state, filter: action.payload};
     // Default is not needed since there's no way it will be called
   }
 };
@@ -57,11 +62,12 @@ export const useActionState = () => {
     dispatch: React.Dispatch<DispatchType>;
   };
 
-  const {view, sort} = state;
+  const {view, sort, filter} = state;
 
   return {
     view,
     sort,
+    filter,
     dispatch,
   };
 };
