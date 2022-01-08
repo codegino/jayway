@@ -5,14 +5,25 @@ import Heading3 from '../../components/typography/Heading3';
 import _EmailIcon from '../../icons/mail.svg';
 import _PhoneIcon from '../../icons/phone.svg';
 import type {TeamMember} from '../../models/team-member';
+import {mq} from '../../utils/media-query';
 import EmployeeImage from './Image';
 
-const WideCard: FC<TeamMember> = ({picture, name, location, email, phone}) => {
+const WideCard: FC<TeamMember> = ({
+  picture,
+  name,
+  location,
+  color,
+  email,
+  phone,
+}) => {
   const fullName = `${name.first} ${name.last}`;
 
   return (
     <Container data-testid="list-card">
+      <LeftCurve color={color} />
+
       <MainDetails>
+        <Picture size={80} picture={picture} alt={fullName} title={fullName} />
         <BasicInfo>
           <Heading2>{fullName}</Heading2>
           <Heading3>{location.city}</Heading3>
@@ -45,6 +56,9 @@ const ContactInfo = styled.div({
   justifyContent: 'space-between',
   width: 50,
   alignSelf: 'flex-end',
+  [mq('sm')]: {
+    alignSelf: 'center',
+  },
 });
 
 const BasicInfo = styled.div({
@@ -52,7 +66,9 @@ const BasicInfo = styled.div({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
-
+  [mq('sm')]: {
+    alignSelf: 'center',
+  },
   '& h2': {
     fontSize: 18,
     lineHeight: '21px',
@@ -63,6 +79,15 @@ const BasicInfo = styled.div({
   },
 });
 
+const Picture = styled(EmployeeImage)<{size: number}>(props => ({
+  position: 'absolute',
+  borderRadius: '50%',
+  overflow: 'hidden',
+  left: props.size / -2,
+  height: props.size,
+  width: props.size,
+}));
+
 const MainDetails = styled.section({
   display: 'flex',
   justifyContent: 'space-between',
@@ -71,9 +96,25 @@ const MainDetails = styled.section({
   width: '100%',
   alignItems: 'center',
   backgroundColor: '#FFFFFF',
+  borderTopLeftRadius: 42,
   padding: '20px 16.5px 20px 60px',
   zIndex: 1,
 });
+
+const LeftCurve = styled.div<{color: string}>(props => ({
+  backgroundColor: props.color,
+  height: '100%',
+  width: 100,
+  position: 'relative',
+  '&::before': {
+    content: '""',
+    width: 60,
+    height: '100%',
+    position: 'absolute',
+    right: -60,
+    backgroundColor: props.color,
+  },
+}));
 
 const Container = styled.div({
   display: 'flex',
