@@ -5,6 +5,7 @@ import {generateRandomColor} from '../../utils/color-generator';
 import {mq} from '../../utils/media-query';
 
 const GridViewCard = React.lazy(() => import('./GridViewCard'));
+const ListViewCard = React.lazy(() => import('./ListViewCard'));
 
 export const TeamMembers: FC = () => {
   const [users, setUsers] = useState<TeamMember[]>([]);
@@ -35,11 +36,11 @@ export const TeamMembers: FC = () => {
   return (
     <>
       <Suspense fallback={<div>Fallback component</div>}>
-        <GridView>
+        <ListView>
           {users.map((user: TeamMember) => (
-            <GridViewCard key={user.email} {...user} />
+            <ListViewCard key={user.email} {...user} />
           ))}
-        </GridView>
+        </ListView>
       </Suspense>
     </>
   );
@@ -55,6 +56,13 @@ const GridView = styled.div({
   [mq('sm')]: {
     gap: 48,
   },
+});
+
+const ListView = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  rowGap: 18,
 });
 
 export default TeamMembers;
