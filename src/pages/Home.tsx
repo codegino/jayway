@@ -1,12 +1,14 @@
 import React, {FC} from 'react';
 import styled from '@emotion/styled';
 import Heading1 from '../components/typography/Heading1';
+import TeamMembers from '../modules/team/TeamMembers';
 
 const Home: FC = () => {
   return (
     <LayoutWrapper>
       <Main>
         <Heading1>Meet the Team</Heading1>
+        <TeamMembers />
       </Main>
     </LayoutWrapper>
   );
