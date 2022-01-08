@@ -1,4 +1,4 @@
-import React, {FC, Suspense, useEffect, useRef, useState} from 'react';
+import React, {FC, Suspense, useEffect, useState} from 'react';
 import styled from '@emotion/styled';
 import type {TeamMember} from '../../models/team-member';
 import {useActionState} from '../../state/action-state';
@@ -34,7 +34,24 @@ export const TeamMembers: FC = () => {
       });
   }, []);
 
-  const {view} = useActionState();
+  const {view, filter, sort} = useActionState();
+
+  // We can wrap these in `useMemo`, but these are not currently that computationally expensive.
+  const filteredList = filter.length
+    ? users.filter(user => {
+        return new RegExp(filter, 'i').test(
+          `${user.name.first} ${user.name.last}`.toLocaleLowerCase(),
+        );
+      })
+    : users;
+
+  const sortedList = filteredList.sort((a, b) => {
+    if (sort === 'asc') {
+      return a.name.first.localeCompare(b.name.first);
+    } else {
+      return b.name.first.localeCompare(a.name.first);
+    }
+  });
 
   const View = view === 'grid' ? GridView : ListView;
   const Card = view === 'grid' ? GridViewCard : ListViewCard;
@@ -43,7 +60,7 @@ export const TeamMembers: FC = () => {
     <>
       <Suspense fallback={<div>Fallback component</div>}>
         <View>
-          {users.map((user: TeamMember) => (
+          {sortedList.map((user: TeamMember) => (
             <Card key={user.email} {...user} />
           ))}
         </View>
