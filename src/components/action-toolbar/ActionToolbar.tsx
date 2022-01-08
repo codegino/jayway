@@ -1,30 +1,30 @@
-import React, {FC} from 'react';
-import {ReactComponent as ListIcon} from '../../icons/list.svg';
-import {ReactComponent as ThumbnailIcon} from '../../icons/thumbnail.svg';
-import {useActionState} from '../../state/action-state';
+import React, {FunctionComponent} from 'react';
+import styled from '@emotion/styled';
+import {mq} from '../../utils/media-query';
+import {ViewToggle} from './ViewToggle';
 
-const ActionToolbar: FC = props => {
-  const {view, dispatch} = useActionState();
-
-  const handleChangeView = () => {
-    dispatch({type: 'view', payload: view === 'grid' ? 'list' : 'grid'});
-  };
-
-  const Icon = view === 'grid' ? ThumbnailIcon : ListIcon;
-
+const ActionToolbar: FunctionComponent = () => {
   return (
-    <div
-      {...props}
-      onClick={handleChangeView}
-      onKeyPress={handleChangeView}
-      tabIndex={0}
-      role="button"
-      aria-label={view === 'grid' ? 'Grid View' : 'List View'}
-      title={view === 'grid' ? 'Grid View' : 'List View'}
-    >
-      <Icon viewBox="0 0 24 23" />
-    </div>
+    <GridContainer>
+      <ViewToggle className="view-button" />
+    </GridContainer>
   );
 };
+
+const GridContainer = styled.div({
+  display: 'grid',
+  width: '100%',
+  position: 'relative',
+  gridTemplateColumns: '1fr 1fr',
+  marginBottom: 18,
+  [mq('md')]: {
+    gridTemplateColumns: '33px 1fr 1fr',
+  },
+  gap: 10,
+  '& .view-button': {
+    textAlign: 'right',
+    order: 3,
+  },
+});
 
 export default ActionToolbar;
