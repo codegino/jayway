@@ -4,7 +4,6 @@
   "endOfLine": "lf",
   "htmlWhitespaceSensitivity": "css",
   "insertPragma": false,
-  "jsxBracketSameLine": false,
   "jsxSingleQuote": false,
   "printWidth": 80,
   "proseWrap": "always",
@@ -14,6 +13,5 @@
   "tabWidth": 2,
   "trailingComma": "all",
   "useTabs": false,
-  "importOrder": ["^react$", "^@\\w", "^\\w", "^[/.+/]"],
-  "experimentalBabelParserPluginsList": ["jsx", "typescript"]
+  "importOrder": ["^react$", "^@\\w", "^\\w", "^[/.+/]"]
 }
