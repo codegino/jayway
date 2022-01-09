@@ -137,4 +137,4 @@ const PhoneIcon = styled.img({
   height: 19,
 });
 
-export default WideCard;
+export default React.memo(WideCard);

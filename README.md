@@ -128,3 +128,10 @@ report.
 ![Image](https://media2.giphy.com/media/7k5dTPH05QAPyR51f4/giphy.gif)
 
 Play with the application [here](https://jayway.vercel.app/).
+
+### Notes on optimization
+
+I have no idea how reviewers will assess the performance aspect. So checked
+React Profiler, and I added basic optimizations for things I'm sure are
+essentially needed. I made notes for other cases where I think premature
+optimization is unnecessary.

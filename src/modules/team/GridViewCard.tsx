@@ -176,4 +176,4 @@ const PhoneIcon = styled.img({
   },
 });
 
-export default GridCard;
+export default React.memo(GridCard);

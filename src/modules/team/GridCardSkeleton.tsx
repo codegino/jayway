@@ -27,9 +27,9 @@ const GridCardSkeleton: FC = () => {
   );
 };
 
-// Some styles here are similar in GridViewCard,
+// Some styles here are similar in ListViewCard,
 // but I intentionaly will not extract to save some time.
-// This will be different in actual project.
+// This will be more organized in actual project.
 
 const Container = styled.section<{color: string}>(props => ({
   display: 'flex',
@@ -159,4 +159,4 @@ const Icon = styled.div({
   },
 });
 
-export default GridCardSkeleton;
+export default React.memo(GridCardSkeleton);

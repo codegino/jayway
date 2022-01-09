@@ -27,8 +27,8 @@ const ListCardSkeleton: FC = () => {
 };
 
 // Some styles here are similar in ListViewCard,
-// but I intentionaly will not extract to same some time.
-// This will be different in actual project.
+// but I intentionaly will not extract to save some time.
+// This will be more organized in actual project.
 
 const ContactInfo = styled.div({
   display: 'flex',
@@ -128,4 +128,4 @@ const Icon = styled.div({
   backgroundColor: '#eaeaea',
 });
 
-export default ListCardSkeleton;
+export default React.memo(ListCardSkeleton);

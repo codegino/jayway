@@ -8,8 +8,8 @@ import Input from '../elements/Input';
 export const SearchBox: FC<{className: string}> = props => {
   const {dispatch, filter} = useActionState();
 
-  // We can improve the performance of filtering by debouncing the input.
-  // However, since the data is already loaded with size of 50,
+  // We can improve the performance of filtering by debouncing the input + `useCallback`.
+  // However, since the data is already loaded with only size of 50,
   // there is no deal-breaker advantage to this.
   const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({type: 'filter', payload: e.target.value});
