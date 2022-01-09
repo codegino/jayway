@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {ReactComponent as ListIcon} from '../../icons/list.svg';
-import {ReactComponent as ThumbnailIcon} from '../../icons/thumbnail.svg';
+import {ReactComponent as GridIcon} from '../../icons/thumbnail.svg';
 import {useActionState} from '../../state/action-state';
 
 export const ViewToggle: FC<{className: string}> = props => {
@@ -9,11 +9,11 @@ export const ViewToggle: FC<{className: string}> = props => {
   const handleChangeView = () => {
     dispatch({
       type: 'view',
-      payload: view === 'thumbnail' ? 'list' : 'thumbnail',
+      payload: view === 'grid' ? 'list' : 'grid',
     });
   };
 
-  const Icon = view === 'thumbnail' ? ThumbnailIcon : ListIcon;
+  const Icon = view === 'grid' ? GridIcon : ListIcon;
 
   return (
     <div
@@ -22,8 +22,8 @@ export const ViewToggle: FC<{className: string}> = props => {
       onKeyPress={handleChangeView}
       tabIndex={0}
       role="button"
-      aria-label={view === 'thumbnail' ? 'Grid View' : 'List View'}
-      title={view === 'thumbnail' ? 'Grid View' : 'List View'}
+      aria-label={view === 'grid' ? 'Grid View' : 'List View'}
+      title={view === 'grid' ? 'Grid View' : 'List View'}
     >
       <Icon
         style={{

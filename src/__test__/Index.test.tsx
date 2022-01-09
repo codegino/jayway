@@ -19,19 +19,19 @@ test('Toggle Grid and List view', async () => {
 
   // Grid view by default
   expect(screen.getByRole('button', {name: /grid view/i})).toBeInTheDocument();
-  expect(await screen.findAllByTestId('thumbnail-card')).toHaveLength(2);
+  expect(await screen.findAllByTestId('grid-card')).toHaveLength(2);
   expect(screen.queryAllByTestId('list-card')).toHaveLength(0);
 
   // Toggle to list view
   userEvent.click(screen.getByRole('button', {name: /grid view/i}));
   expect(screen.getByRole('button', {name: /list view/i})).toBeInTheDocument();
   expect(await screen.findAllByTestId('list-card')).toHaveLength(2);
-  expect(screen.queryAllByTestId('thumbnail-card')).toHaveLength(0);
+  expect(screen.queryAllByTestId('grid-card')).toHaveLength(0);
 
   // Toggle back to grid view
   userEvent.click(screen.getByRole('button', {name: /list view/i}));
   expect(screen.getByRole('button', {name: /grid view/i})).toBeInTheDocument();
-  expect(await screen.findAllByTestId('thumbnail-card')).toHaveLength(2);
+  expect(await screen.findAllByTestId('grid-card')).toHaveLength(2);
   expect(screen.queryAllByTestId('list-card')).toHaveLength(0);
 });
 

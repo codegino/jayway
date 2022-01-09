@@ -3,7 +3,7 @@ import type {FunctionComponent} from 'react';
 
 // Mini state management utility
 
-type ViewType = 'thumbnail' | 'list';
+type ViewType = 'grid' | 'list';
 type SortType = 'asc' | 'desc';
 
 type StateType = {
@@ -13,7 +13,7 @@ type StateType = {
 };
 
 type DispatchType =
-  | {type: 'view'; payload: 'thumbnail' | 'list'}
+  | {type: 'view'; payload: 'grid' | 'list'}
   | {type: 'sort'; payload: 'asc' | 'desc'}
   | {type: 'filter'; payload: string};
 
@@ -28,7 +28,7 @@ export const ActionContext = createContext<ActionState>(
 
 export const ActionProvider: FunctionComponent = ({children}) => {
   const [state, dispatch] = useReducer(stateReducer, {
-    view: 'thumbnail',
+    view: 'grid',
     sort: 'asc',
     filter: '',
   });
