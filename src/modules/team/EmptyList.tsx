@@ -7,7 +7,12 @@ const EmptyList: FC = () => (
     <div className="content">
       <h2>I did my best, but I guess my best wasn&lsquo;t good enough...</h2>
     </div>
-    <ErrorImage className="empty-list-image" viewBox="0 0 1500 1200" />
+    <ErrorImage
+      className="empty-list-image"
+      viewBox="0 0 1500 1200"
+      role="img"
+      aria-label="Empty list"
+    />
   </Container>
 );
 

@@ -31,7 +31,12 @@ class ErrorBoundary extends React.Component<Props, State> {
             <h2>Ooops!!! Something went wrong.</h2>
             <pre>{this.state.errorMessage}</pre>
           </div>
-          <ErrorImage className="error-image" viewBox="0 0 1500 1200" />
+          <ErrorImage
+            className="error-image"
+            viewBox="0 0 1500 1200"
+            role="img"
+            aria-label="Something went wrong"
+          />
         </Container>
       );
     }
