@@ -51,12 +51,15 @@ const WideCard: FC<TeamMember> = ({
 };
 
 const ContactInfo = styled.div({
+  position: 'absolute',
+  right: 21,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  width: 50,
+  width: 51,
   alignSelf: 'flex-end',
   [mq('sm')]: {
+    right: 33,
     alignSelf: 'center',
   },
 });
@@ -71,11 +74,23 @@ const BasicInfo = styled.div({
   },
   '& h2': {
     fontSize: 18,
-    lineHeight: '21px',
+    lineHeight: '21.04px',
+    color: '#000000',
+    [mq('sm')]: {
+      // There are inconsistent letter spacing in Figma
+      // I will just ignore here
+      // letterSpacing: '0.01em',
+    },
   },
   '& h3': {
+    color: '#292929',
     fontSize: 13,
     lineHeight: '16px',
+    [mq('sm')]: {
+      marginTop: 3.56,
+      fontSize: 14,
+      lineHeight: '17px',
+    },
   },
 });
 
@@ -86,6 +101,7 @@ const Picture = styled(MemberImage)<{size: number}>(props => ({
   left: props.size / -2,
   height: props.size,
   width: props.size,
+  filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2))',
 }));
 
 const MainDetails = styled.section({

@@ -48,15 +48,16 @@ const Container = styled.section<{color: string}>(props => ({
 
 const Picture = styled.div({
   position: 'absolute',
-  bottom: '-25%',
   borderRadius: '50%',
   overflow: 'hidden',
+  bottom: -40,
   height: 80,
   width: 80,
   backgroundColor: '#eaeaea',
-  border: '1px solid #fbfbfb',
+  filter: 'drop-shadow(0px 2.5731px 2.5731px rgba(0, 0, 0, 0.2))',
   zIndex: 1,
   [mq('sm')]: {
+    bottom: -50,
     height: 100,
     width: 100,
   },
@@ -138,6 +139,7 @@ const ExtraDetails = styled.div({
   height: '100%',
   '& h3': {
     backgroundColor: '#eaeaea',
+    color: '#292929',
     height: 16,
     borderRadius: 20,
     width: 80,

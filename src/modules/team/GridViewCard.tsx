@@ -67,13 +67,16 @@ const Container = styled.section<{color: string}>(props => ({
 
 const Picture = styled(MemberImage)({
   position: 'absolute',
-  bottom: '-25%',
   borderRadius: '50%',
   overflow: 'hidden',
+  // There are many ways to center the image.
+  bottom: -40,
   height: 80,
   width: 80,
   zIndex: 1,
+  filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2))',
   [mq('sm')]: {
+    bottom: -50,
     height: 100,
     width: 100,
   },
@@ -88,12 +91,21 @@ const MainDetails = styled.div({
   borderBottomRightRadius: 42,
   '& h2': {
     position: 'absolute',
-    top: 25,
+    top: 30,
+    color: '#000000',
     textAlign: 'center',
     padding: '0 0.25rem',
+    fontSize: 14,
+    lineHeight: '16px',
     [mq('sm')]: {
+      fontSize: 18,
+      lineHeight: '21px',
       padding: '0 0.5rem',
       top: 60,
+
+      // There are inconsistent letter spacing in Figma
+      // I will just ignore here
+      // letterSpacing: '0.01em',
     },
   },
 });
@@ -129,13 +141,14 @@ const ContactInfo = styled.div({
   position: 'absolute',
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center',
-  bottom: 17.84,
+  bottom: 17.62,
   width: 32.81,
+  height: 14.15,
 
   [mq('sm')]: {
     bottom: 34,
     width: 51,
+    height: 22,
   },
 });
 
@@ -152,7 +165,14 @@ const ExtraDetails = styled.div({
 
   '& h3': {
     padding: '0 0.25rem',
+    position: 'absolute',
+    bottom: 40,
+    fontSize: 13,
+    lineHeight: '15.6px',
     [mq('sm')]: {
+      fontSize: 12,
+      lineHeight: '14px',
+      bottom: 74,
       padding: '0 0.5rem',
     },
   },

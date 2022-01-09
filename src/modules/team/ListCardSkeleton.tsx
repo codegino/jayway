@@ -79,7 +79,7 @@ const Picture = styled.div<{size: number}>(props => ({
   height: props.size,
   width: props.size,
   backgroundColor: '#eaeaea',
-  border: '1px solid #fbfbfb',
+  filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2))',
 }));
 
 const MainDetails = styled.section({

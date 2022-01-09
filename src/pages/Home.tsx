@@ -39,7 +39,7 @@ const Main = styled.main({
   maxWidth: 750,
   overflow: 'hidden',
   position: 'relative',
-  padding: '0 2rem',
+  padding: '0 2%',
   '& h1': {
     width: '100%',
     textAlign: 'left',
