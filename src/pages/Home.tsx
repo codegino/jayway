@@ -5,6 +5,7 @@ import Heading1 from '../components/typography/Heading1';
 import ErrorBoundary from '../modules/team/ErrorBoundary';
 import TeamMembersListing from '../modules/team/TeamMembersListing';
 import {ActionProvider} from '../state/action-state';
+import {mq} from '../utils/media-query';
 
 const Home: FC = () => {
   return (
@@ -28,6 +29,19 @@ const LayoutWrapper = styled.div({
   justifyContent: 'center',
   paddingBottom: '2vh',
   minWidth: '20rem',
+  padding: '0 3%',
+
+  [mq('xs')]: {
+    padding: '0 10%',
+  },
+
+  [mq('sm')]: {
+    padding: '0 5%',
+  },
+
+  [mq('md')]: {
+    padding: 0,
+  },
 });
 
 const Main = styled.main({
@@ -39,10 +53,14 @@ const Main = styled.main({
   maxWidth: 750,
   overflow: 'hidden',
   position: 'relative',
-  padding: '0 2%',
   '& h1': {
     width: '100%',
     textAlign: 'left',
+    marginBottom: 32.01,
+
+    [mq('sm')]: {
+      marginBottom: 48,
+    },
   },
 });
 

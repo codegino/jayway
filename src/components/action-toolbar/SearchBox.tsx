@@ -32,14 +32,16 @@ export const SearchBox: FC<{className: string}> = props => {
 const SearchWrapper = styled.div({
   position: 'relative',
   overflow: 'hidden',
+  height: 23,
+  [mq('sm')]: {
+    height: 24,
+  },
 });
 
 const StyledSearchIcon = styled.img({
-  width: 17.4,
-  height: 17.25,
+  width: 18.67,
+  height: 18,
   position: 'absolute',
-  [mq('sm')]: {
-    width: 18.67,
-    height: 18,
-  },
+  top: 0,
+  left: 0,
 });

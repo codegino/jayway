@@ -21,10 +21,12 @@ const GridContainer = styled.div({
   position: 'relative',
   gridTemplateColumns: '1fr 1fr',
   marginBottom: 18,
+  gap: 25,
+
   [mq('md')]: {
+    gap: 10,
     gridTemplateColumns: '33px 1fr 1fr',
   },
-  gap: 10,
   '& .sort-button': {
     textAlign: 'left',
     order: 1,
