@@ -5,10 +5,10 @@ import {useActionState} from '../../state/action-state';
 import {generateRandomColor} from '../../utils/color-generator';
 import {mq} from '../../utils/media-query';
 import EmptyList from './EmptyList';
-import GridCardSkeleton from './GridCardSkeleton';
 import ListCardSkeleton from './ListCardSkeleton';
+import ThumbnailCardSkeleton from './ThumbnailCardSkeleton';
 
-const GridViewCard = React.lazy(() => import('./GridViewCard'));
+const ThumbnailViewCard = React.lazy(() => import('./ThumbnailViewCard'));
 const ListViewCard = React.lazy(() => import('./ListViewCard'));
 
 export const TeamMembers: FC = () => {
@@ -42,8 +42,8 @@ export const TeamMembers: FC = () => {
     }
   });
 
-  const View = view === 'grid' ? GridView : ListView;
-  const Card = view === 'grid' ? GridViewCard : ListViewCard;
+  const View = view === 'thumbnail' ? GridView : ListView;
+  const Card = view === 'thumbnail' ? ThumbnailViewCard : ListViewCard;
 
   return (
     <>
@@ -114,9 +114,9 @@ const useFetchTeam = () => {
   return {data, loading, error};
 };
 
-const FallbackComponent: FC<{view: 'grid' | 'list'}> = ({view}) => {
-  const View = view === 'grid' ? GridView : ListView;
-  const Card = view === 'grid' ? GridCardSkeleton : ListCardSkeleton;
+const FallbackComponent: FC<{view: 'thumbnail' | 'list'}> = ({view}) => {
+  const View = view === 'thumbnail' ? GridView : ListView;
+  const Card = view === 'thumbnail' ? ThumbnailCardSkeleton : ListCardSkeleton;
 
   return (
     <View role="alert" aria-busy aria-label="Loading">

@@ -7,10 +7,13 @@ export const ViewToggle: FC<{className: string}> = props => {
   const {view, dispatch} = useActionState();
 
   const handleChangeView = () => {
-    dispatch({type: 'view', payload: view === 'grid' ? 'list' : 'grid'});
+    dispatch({
+      type: 'view',
+      payload: view === 'thumbnail' ? 'list' : 'thumbnail',
+    });
   };
 
-  const Icon = view === 'grid' ? ThumbnailIcon : ListIcon;
+  const Icon = view === 'thumbnail' ? ThumbnailIcon : ListIcon;
 
   return (
     <div
@@ -19,8 +22,8 @@ export const ViewToggle: FC<{className: string}> = props => {
       onKeyPress={handleChangeView}
       tabIndex={0}
       role="button"
-      aria-label={view === 'grid' ? 'Grid View' : 'List View'}
-      title={view === 'grid' ? 'Grid View' : 'List View'}
+      aria-label={view === 'thumbnail' ? 'Grid View' : 'List View'}
+      title={view === 'thumbnail' ? 'Grid View' : 'List View'}
     >
       <Icon
         style={{

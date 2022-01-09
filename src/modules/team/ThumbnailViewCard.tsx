@@ -2,34 +2,53 @@ import React, {FC} from 'react';
 import styled from '@emotion/styled';
 import Heading2 from '../../components/typography/Heading2';
 import Heading3 from '../../components/typography/Heading3';
+import _EmailIcon from '../../icons/mail.svg';
+import _PhoneIcon from '../../icons/phone.svg';
+import type {TeamMember} from '../../models/team-member';
 import {mq} from '../../utils/media-query';
+import MemberImage from './MemberImage';
 
-const GridCardSkeleton: FC = () => {
-  const color = '#efefef';
-
+const ThumbnailCard: FC<TeamMember> = ({
+  name,
+  picture,
+  location,
+  color,
+  email,
+  phone,
+}) => {
+  const fullName = `${name.first} ${name.last}`;
   return (
-    <Container color={color}>
+    <Container color={color} data-testid="thumbnail-card">
       <MainDetails>
-        <Heading2 />
-        <Picture />
+        <Heading2>{fullName}</Heading2>
+        <Picture picture={picture} alt={fullName} title={fullName} />
 
         <BottomRightCurveContainer color={color} />
       </MainDetails>
 
       <ExtraDetails>
-        <Heading3 />
+        <Heading3>{location.city}</Heading3>
         <ContactInfo>
-          <Icon />
-          <Icon />
+          <a
+            href={`mailto:${email}`}
+            title={`Email ${fullName}`}
+            aria-label={`Email ${fullName}`}
+          >
+            <EmailIcon src={_EmailIcon} alt={email} />
+          </a>
+          <a href={`tel:${phone}`}>
+            <PhoneIcon
+              src={_PhoneIcon}
+              title={`Call ${fullName}`}
+              aria-label={`Call ${fullName}`}
+              alt={phone}
+            />
+          </a>
         </ContactInfo>
       </ExtraDetails>
     </Container>
   );
 };
-
-// Some styles here are similar in ListViewCard,
-// but I intentionaly will not extract to save some time.
-// This will be more organized in actual project.
 
 const Container = styled.section<{color: string}>(props => ({
   display: 'flex',
@@ -46,16 +65,16 @@ const Container = styled.section<{color: string}>(props => ({
   },
 }));
 
-const Picture = styled.div({
+const Picture = styled(MemberImage)({
   position: 'absolute',
   borderRadius: '50%',
   overflow: 'hidden',
+  // There are many ways to center the image.
   bottom: -40,
   height: 80,
   width: 80,
-  backgroundColor: '#eaeaea',
-  filter: 'drop-shadow(0px 2.5731px 2.5731px rgba(0, 0, 0, 0.2))',
   zIndex: 1,
+  filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2))',
   [mq('sm')]: {
     bottom: -50,
     height: 100,
@@ -73,17 +92,21 @@ const MainDetails = styled.div({
   '& h2': {
     position: 'absolute',
     top: 30,
+    color: '#000000',
     textAlign: 'center',
-    padding: '0 1rem',
-    height: 16,
-    width: 60,
+    padding: '0 0.25rem',
+    fontSize: 14,
+    lineHeight: '16px',
     [mq('sm')]: {
+      fontSize: 18,
+      lineHeight: '21px',
+      padding: '0 0.5rem',
       top: 60,
-      width: 90,
-      height: 21,
+
+      // There are inconsistent letter spacing in Figma
+      // I will just ignore here
+      // letterSpacing: '0.01em',
     },
-    backgroundColor: '#dadada',
-    borderRadius: 20,
   },
 });
 
@@ -118,13 +141,14 @@ const ContactInfo = styled.div({
   position: 'absolute',
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center',
-  bottom: 17.84,
+  bottom: 17.62,
   width: 32.81,
+  height: 14.15,
 
   [mq('sm')]: {
     bottom: 34,
     width: 51,
+    height: 22,
   },
 });
 
@@ -137,28 +161,39 @@ const ExtraDetails = styled.div({
   backgroundColor: '#ffffff',
   borderTopLeftRadius: 42,
   height: '100%',
+  textAlign: 'center',
+
   '& h3': {
-    backgroundColor: '#eaeaea',
-    color: '#292929',
-    height: 16,
-    borderRadius: 20,
-    width: 80,
+    padding: '0 0.25rem',
+    position: 'absolute',
+    bottom: 40,
+    fontSize: 13,
+    lineHeight: '15.6px',
     [mq('sm')]: {
-      width: 90,
-      height: 21,
+      fontSize: 12,
+      lineHeight: '14px',
+      bottom: 74,
+      padding: '0 0.5rem',
     },
   },
 });
 
-const Icon = styled.div({
+const EmailIcon = styled.img({
   width: 14.15,
   height: 14.15,
-  borderRadius: 8,
-  backgroundColor: '#eaeaea',
   [mq('sm')]: {
     width: 22,
     height: 22,
   },
 });
 
-export default React.memo(GridCardSkeleton);
+const PhoneIcon = styled.img({
+  width: 12.22,
+  height: 12.22,
+  [mq('sm')]: {
+    width: 19,
+    height: 19,
+  },
+});
+
+export default React.memo(ThumbnailCard);

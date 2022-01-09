@@ -17,7 +17,7 @@ export const SearchBox: FC<{className: string}> = props => {
 
   return (
     <SearchWrapper {...props}>
-      <StyledSearchIcon src={SearchIcon} alt="sort" />
+      <StyledSearchIcon src={SearchIcon} alt="Search" />
       <Input
         value={filter}
         role="searchbox"

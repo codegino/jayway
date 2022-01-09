@@ -8,6 +8,7 @@ import {createTeamMember} from '../__mocks__/team-member';
 
 // This type of tests resembles actual user behavior
 // If you prefer to write tests in a granular level(Unit Test), I'm very much familiar with that as well.
+// Less code, more confidence.
 
 // We can group tests using `describe` if you prefer it that way.
 
@@ -17,24 +18,24 @@ test('Toggle Filter by name', async () => {
   render();
 
   // Check default contents
-  const gridCards = await screen.findAllByTestId('grid-card');
-  expect(gridCards).toHaveLength(2);
-  expect(gridCards[0]).toHaveTextContent('AAA');
-  expect(gridCards[1]).toHaveTextContent('ABC');
+  const thumbnailCards = await screen.findAllByTestId('thumbnail-card');
+  expect(thumbnailCards).toHaveLength(2);
+  expect(thumbnailCards[0]).toHaveTextContent('AAA');
+  expect(thumbnailCards[1]).toHaveTextContent('ABC');
 
   // Filter name with value `AB`
   userEvent.type(
     screen.getByRole('searchbox', {name: /search by name/i}),
     'AB',
   );
-  expect(await screen.findAllByTestId('grid-card')).toHaveLength(1);
+  expect(await screen.findAllByTestId('thumbnail-card')).toHaveLength(1);
 
   // Filter name with no matching value
   userEvent.type(
     screen.getByRole('searchbox', {name: 'Search by name'}),
     'Should not exist',
   );
-  expect(screen.queryAllByTestId('grid-card')).toHaveLength(0);
+  expect(screen.queryAllByTestId('thumbnail-card')).toHaveLength(0);
   expect(
     screen.getByRole('alert', {name: 'No results found'}),
   ).toBeInTheDocument();
@@ -42,7 +43,7 @@ test('Toggle Filter by name', async () => {
 
   // Clear filter to show default contents
   userEvent.clear(screen.getByRole('searchbox', {name: 'Search by name'}));
-  expect(await screen.findAllByTestId('grid-card')).toHaveLength(2);
+  expect(await screen.findAllByTestId('thumbnail-card')).toHaveLength(2);
 });
 
 test('Show error message when input received `ERROR` value', async () => {
@@ -59,22 +60,22 @@ test('Toggle Sorting in ascending and descending order', async () => {
   render();
 
   // Check default sorting order
-  const gridCards = await screen.findAllByTestId('grid-card');
-  expect(gridCards).toHaveLength(2);
-  expect(gridCards[0]).toHaveTextContent('AAA');
-  expect(gridCards[1]).toHaveTextContent('ABC');
+  const thumbnailCards = await screen.findAllByTestId('thumbnail-card');
+  expect(thumbnailCards).toHaveLength(2);
+  expect(thumbnailCards[0]).toHaveTextContent('AAA');
+  expect(thumbnailCards[1]).toHaveTextContent('ABC');
 
   // Sort by descending order
   userEvent.click(screen.getByRole('button', {name: /switch to descending/i}));
-  const sortedGridCards_1st = await screen.findAllByTestId('grid-card');
-  expect(sortedGridCards_1st[0]).toHaveTextContent('ABC');
-  expect(sortedGridCards_1st[1]).toHaveTextContent('AAA');
+  const sortedCards_1st = await screen.findAllByTestId('thumbnail-card');
+  expect(sortedCards_1st[0]).toHaveTextContent('ABC');
+  expect(sortedCards_1st[1]).toHaveTextContent('AAA');
 
   // Sort by descending order
   userEvent.click(screen.getByRole('button', {name: /switch to ascending/i}));
-  const sortedGridCards_2nd = await screen.findAllByTestId('grid-card');
-  expect(sortedGridCards_2nd[0]).toHaveTextContent('AAA');
-  expect(sortedGridCards_2nd[1]).toHaveTextContent('ABC');
+  const sortedCards_2nd = await screen.findAllByTestId('thumbnail-card');
+  expect(sortedCards_2nd[0]).toHaveTextContent('AAA');
+  expect(sortedCards_2nd[1]).toHaveTextContent('ABC');
 });
 
 // Mocking backend data starts here
