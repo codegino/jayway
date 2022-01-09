@@ -24,10 +24,9 @@ const Home: FC = () => {
 };
 
 const LayoutWrapper = styled.div({
-  width: '100vw',
+  width: '100%',
   display: 'flex',
   justifyContent: 'center',
-  paddingBottom: '2vh',
   minWidth: '20rem',
   padding: '0 3%',
 
@@ -53,6 +52,7 @@ const Main = styled.main({
   maxWidth: 750,
   overflow: 'hidden',
   position: 'relative',
+  marginBottom: '2vh',
   '& h1': {
     width: '100%',
     textAlign: 'left',

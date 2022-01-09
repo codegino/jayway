@@ -15,7 +15,6 @@ const Element = styled.input({
   width: '100%',
   paddingBottom: 3,
   backgroundColor: 'transparent',
-  borderBottom: '2px solid #000000',
 });
 
 export default Input;

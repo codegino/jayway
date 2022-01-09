@@ -32,6 +32,7 @@ export const SearchBox: FC<{className: string}> = props => {
 const SearchWrapper = styled.div({
   position: 'relative',
   overflow: 'hidden',
+  borderBottom: '2px solid #000000',
   height: 23,
   [mq('sm')]: {
     height: 24,
