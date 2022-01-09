@@ -46,10 +46,17 @@ yarn coverage
 
 ## Assumptions
 
-Since there are no clear criteria on how tech stack choice will be assessed, I
-listed some assumptions on what I chose to use.
+### Styling
+
+- I used pixels in most sizes for the reviewers' convenience, so there's no need
+  to convert from `rem`.
+- Since there are no other card sizes provided for different screen sizes, I
+  assume card sizes won't grow in height and width(excluding list view).
 
 ### Choice of tech stacks
+
+Since there are no clear criteria on how tech stack choice will be assessed, I
+listed some assumptions on what I chose to use.
 
 #### Create React App
 
