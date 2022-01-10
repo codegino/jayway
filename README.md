@@ -98,6 +98,14 @@ this exercise.
 - `__mocks__` - test related utilities
 - `__test__` - Contained all test cases.
 
+### Naming convention
+
+There are multiple ways to do this. For this exercise, I used these simple
+conventions:
+
+- File name matches their component name(Pascal case) and has a default export.
+- Others will follow the camel casing and will be named export.
+
 ---
 
 ## Checklists
